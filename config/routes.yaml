@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# More modern way is to use PHP 8 attributes
+# app_index:
+#     path: /
+#     controller: App\Controller\HelloController::index
