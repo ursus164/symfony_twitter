@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\MicroPost;
 use App\Repository\MicroPostRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MicroPostController extends AbstractController
 {
@@ -51,7 +52,7 @@ class MicroPostController extends AbstractController
     }
 
     #[Route('/micro-post/add', name: 'app_micro_post_add', priority:2)]
-    public function add(): Response
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $microPost = new MicroPost();
 
@@ -62,6 +63,21 @@ class MicroPostController extends AbstractController
             ->add('text')
             ->add('submit', SubmitType::class,['label' => 'save'])
             ->getForm();
+
+            // forms by default are being sent ti the same path they were rendered in - so to handle the form submission we will use the same action that renders the form
+
+            $form -> handleRequest($request); // handleRequest method will get the data that is being sent in request and try to match them with fields that this form defines including any validation constraints by default
+
+            if($form -> isSubmitted() && $form -> isValid()) {
+                $post = $form -> getData();
+                $post -> setCreatedAt(new DateTime());
+                $entityManager -> persist($post);
+                $entityManager -> flush();
+
+                // Add response flash message
+                // Redirect to different page
+            }
+            // dd($post);
 
         return $this->render(
             'micro_post/add.html.twig',
