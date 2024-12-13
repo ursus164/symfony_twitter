@@ -7,6 +7,7 @@ use App\Repository\MicroPostRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -59,6 +60,7 @@ class MicroPostController extends AbstractController
         $form = $this->createFormBuilder($microPost)
             ->add('title')
             ->add('text')
+            ->add('submit', SubmitType::class,['label' => 'save'])
             ->getForm();
 
         return $this->render(
