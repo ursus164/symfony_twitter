@@ -13,9 +13,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class MicroPostController extends AbstractController
 {
     #[Route('/micro-post', name: 'app_micro_post')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(MicroPostRepository $posts): Response
     {
-        // dd($posts -> findAll()); // drop and die
+        dd($posts->findAll()); // drop and die
         // dd($posts -> find(4)); // drop and die
         // dd($posts -> findOneBy(['title' => 'Welcome to US'])); // only one
         // dd($posts -> findBy(['title' => 'Welcome to US'])); // all records with that title
@@ -36,5 +36,10 @@ class MicroPostController extends AbstractController
         return $this->render('micro_post/index.html.twig', [
             'controller_name' => 'MicroPostController',
         ]);
+    }
+    #[Route('/micro-post/{id}', name:'app_micro_post_show')]
+    public function showOne(MicroPost $post) : Response {
+        // dd($posts -> find($id));
+        dd($post); // quick way to get single record - with more complex logic we still have to use repository as in index function
     }
 }
