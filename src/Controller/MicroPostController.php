@@ -29,22 +29,41 @@ class MicroPostController extends AbstractController
 
         // $entityManager -> persist($microPost); 
         // $entityManager -> flush();
-        
+
         // Edit existing
         // $microPost = $posts -> find(4);
         // $microPost -> setTitle('New title');
-    
+
         return $this->render('micro_post/index.html.twig', [
-            'posts' => $posts -> findAll()
+            'posts' => $posts->findAll()
         ]);
     }
-    #[Route('/micro-post/{post}', name:'app_micro_post_show')]
-    public function showOne(MicroPost $post) : Response {
+    #[Route('/micro-post/{post}', name: 'app_micro_post_show')]
+    public function showOne(MicroPost $post): Response
+    {
         // dd($posts -> find($id));
         //dd($post); // quick way to get single record - with more complex logic we still have to use repository as in index function
 
         return $this->render('micro_post/show.html.twig', [
             'post' => $post,
         ]);
+    }
+
+    #[Route('/micro-post/add', name: 'app_micro_post_add', priority:2)]
+    public function add(): Response
+    {
+        $microPost = new MicroPost();
+
+        // microPost object will be filled with data provided by a form - that's why we pass it to builder
+
+        $form = $this->createFormBuilder($microPost)
+            ->add('title')
+            ->add('text')
+            ->getForm();
+
+        return $this->render(
+            'micro_post/add.html.twig',
+            ['form' => $form]
+        );
     }
 }
