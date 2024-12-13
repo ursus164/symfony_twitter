@@ -10,9 +10,9 @@ class HelloController extends AbstractController
 {
     // type declaration for safety
     private array $messages = [
-        'Hello',
-        'Hi',
-        'Bye'
+        ['value' => 'Hello', 'created' => '2024/11/12'],
+        ['value' => 'Hi', 'created' => '2024/10/12'],
+        ['value' => 'Hye', 'created' => '2022/02/12']
     ];
 
     #[Route('/{limit<\d+>?3}', name: 'app_index')] // optional param with default value of
@@ -21,7 +21,8 @@ class HelloController extends AbstractController
         return $this->render(
             'hello/index.html.twig',
             [
-                'messages' => array_slice($this->messages, 0, $limit)
+                'messages' => $this->messages,
+                'limit' => $limit
             ]
         );
         // return new Response(implode(',', array_slice($this -> messages,0,$limit))); // joins elements of arrray

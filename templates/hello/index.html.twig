@@ -6,11 +6,13 @@
 {% block body %}
 	<div>
 		{% if messages %}
-			{% for message in messages %}
-				<p>{{message}}</p>
+			{% for message in messages|slice(0,limit) %}
+				<p>{{message.value}}</p>
+				{% include "hello/_message.html.twig" with {message: message} %}
+                {# inherits messages and limit variable - but also message from for loop because it is within a scope #}
 			{% endfor %}
-        {% else %}
-            <p>No messages...</p>              
+		{% else %}
+			<p>No messages...</p>
 		{% endif %}
 	</div>
 {% endblock %}
