@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}You are on INDEX{% endblock %}
+{% block title %}You are on INDEX
+{% endblock %}
 
 {% block body %}
-<div>
-    {{message}}
-</div>
+	<div>
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{message}}</p>
+			{% endfor %}
+        {% else %}
+            <p>No messages...</p>              
+		{% endif %}
+	</div>
 {% endblock %}
