@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $microPost3 -> setText('GERMANY MIDDLE!!!!');
         $microPost3 -> setCreatedAt(new DateTime());
 
-        $manager->persist($microPost2);
+        $manager->persist($microPost3);
 
         $manager->flush();
     }
