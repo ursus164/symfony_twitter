@@ -61,7 +61,6 @@ class MicroPostController extends AbstractController
 
         $form = $this->createForm(MicroPostType::class, new MicroPost());
 
-
         // forms by default are being sent ti the same path they were rendered in - so to handle the form submission we will use the same action that renders the form
 
         $form->handleRequest($request); // handleRequest method will get the data that is being sent in request and try to match them with fields that this form defines including any validation constraints by default
