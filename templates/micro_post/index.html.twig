@@ -5,15 +5,30 @@
 
 {% block body %}
 
-	<div>
+	<div class='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 my-10'>
 		{% if posts %}
 			{% for post in posts %}
-				<div>
-					<a href="{{path('app_micro_post_show', {post:post.id})}}">{{post.title}}</a>
+				<div class='mb-4'>
+					<div class='text-2xl dark:text-slate-200'>
+						<a href="{{path('app_micro_post_show', {post:post.id})}}">{{post.title}}</a>
+					</div>
+					<div class='text-xl text-slate-600 dark:text-slate-300'>
+						{{post.text}}
+					</div>
+					<div class='text-gray-500 dark:text-slate-400'>
+						{{post.createdAt|date('M j, Y')}}
+					</div>
+
+					<div>
+						<a href="#">Like <span class='px-2 rounded bg-slate-200 dark:bg-slate-400'>0</span></a>
+					</div>
+					<div class='text-sm text-slate-600 dark:text-slate-300'>
+						<a href="#">username</a>
+					</div>
 				</div>
 			{% endfor %}
 		{% else %}
-			<p>There's nothing here yet!</p>
+			<p class='text-slate-500 dark:text-slate-200'>There's nothing here yet!</p>
 		{% endif %}
 	</div>
 
