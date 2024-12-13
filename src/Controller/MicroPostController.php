@@ -75,7 +75,10 @@ class MicroPostController extends AbstractController
                 $entityManager -> flush();
 
                 // Add response flash message
+                $this -> addFlash('success', 'Your post was added!');
+
                 // Redirect to different page
+                return $this -> redirectToRoute('app_micro_post');
             }
             // dd($post);
 

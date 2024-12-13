@@ -4,5 +4,26 @@
 {% endblock %}
 
 {% block body %}
-	{{form(form)}}
+	{# {{form(form)}}  #}
+	{{form_start(form)}}
+		<div>
+			{{form_errors(form)}}
+		</div>
+
+		<div>
+			{{form_label(form.title, 'Enter post title')}}
+		</div>
+		<div>
+			{{form_widget(form.title, {'attr' : {'style': 'color: gray'}})}}
+		</div>
+	
+		<div>
+			{{form_label(form.text,'Provide short description.')}}
+		</div>
+		<div>
+			{{form_widget(form.text)}}
+		</div>
+
+		<div>
+	{{form_end(form)}}
 {% endblock %}
