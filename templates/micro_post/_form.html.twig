@@ -4,22 +4,18 @@
 	<div>
 		{{form_errors(form)}}
 	</div>
-
 	<div>
-		{{form_label(form.title, 'Enter post title')}}
+		{{form_label(form.title, 'Enter post title', {'label_attr' : {'class' : 'block text-sm text-slate-700 dark:text-slate-300 font-medium mb-1'}})}}
+		{{form_widget(form.title, {'attr' : {'class': 'block w-full shadow-md border-slate-500 text-slate-800 p-2 dark:border-transparent dark:text-slate-800 rounded-md border mb-2'}})}}
+		{{form_errors(form.title)}}
 	</div>
 	<div>
-		{{form_widget(form.title, {'attr' : {'style': 'color: gray'}})}}
-	</div>
-
-	<div>
-		{{form_label(form.text,'Provide short description.')}}
+		{{form_label(form.text,'Provide short description:', {'label_attr' : {'class' : 'block text-sm text-slate-700 dark:text-slate-300 font-medium mb-1'}})}}
+		{{form_widget(form.text,{'attr' : {'class': 'block w-full shadow-md border-slate-500 text-slate-800 p-2 dark:border-transparent dark:text-slate-800 rounded-md border mb-2'}})}}
+		{{form_errors(form.text)}}
 	</div>
 	<div>
-		{{form_widget(form.text)}}
-	</div>
-	<div>
-		<button type='submit'>Submit</button>
+		<button type='submit' class='block w-full shadow-md border-transparent bg-indigo-400 p-2 mt-5 rounded-md text-slate-100 font-medium text-xl hover:bg-indigo-500 dark:hover:text-white'>Save!</button>
 	</div>
 </div>
 {{form_end(form)}}

@@ -19,11 +19,14 @@
 						{{post.createdAt|date('M j, Y')}}
 					</div>
 
+					<div class='text-sm text-slate-600 dark:text-slate-300'>
+						<a href="#">username</a>
+					</div>
 					<div>
 						<a href="#">Like <span class='px-2 rounded bg-slate-200 dark:bg-slate-400'>0</span></a>
 					</div>
 					<div class='text-sm text-slate-600 dark:text-slate-300'>
-						<a href="#">username</a>
+						<a href="{{path('app_micro_post_edit', {post:post.id})}}">Edit</a>
 					</div>
 				</div>
 			{% endfor %}
