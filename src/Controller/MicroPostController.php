@@ -40,7 +40,7 @@ class MicroPostController extends AbstractController
         // $microPost -> setTitle('New title');
 
         return $this->render('micro_post/index.html.twig', [
-            'posts' => $posts->findAll()
+            'posts' => $posts->findAllWithComments()
         ]);
     }
     #[Route('/micro-post/{post}', name: 'app_micro_post_show')]

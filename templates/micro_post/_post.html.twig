@@ -19,6 +19,9 @@
 	</div>
 	<div class='text-sm text-slate-600 dark:text-slate-300 flex'>
 		<a class='mr-2' href="{{path('app_micro_post_edit', {post:post.id})}}">Edit</a>
-		<a href="{{path('app_micro_post_comment', {post:post.id})}}">Comment</a>
+		<a href="{{path('app_micro_post_comment', {post:post.id})}}">Comment
+			<span class='px-2 rounded bg-slate-200 dark:bg-slate-400'>{{post.comments.count}}</span>
+			{# Doctrine will automatically execute the GETTER for comments field #}
+		</a>
 	</div>
 </div>
