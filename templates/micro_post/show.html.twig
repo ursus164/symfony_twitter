@@ -5,18 +5,37 @@
 {% endblock %}
 
 {% block breadcrumb %}
--> Post
+	-> Post
 {% endblock %}
 
 {% block body %}
 	{# <h3>{{post.title}}</h3>
-		<div>{{post.text}}</div>
-		<div style='color:grey;'>
-			{% if date(post.createdAt) < date('-1year') %}
-				More than year ago.
-			{% else %}
-				{{post.createdAt|date('d/m/Y')}}
-			{% endif %}
-		</div> #}
+						<div>{{post.text}}</div>
+						<div style='color:grey;'>
+							{% if date(post.createdAt) < date('-1year') %}
+								More than year ago.
+							{% else %}
+								{{post.createdAt|date('d/m/Y')}}
+							{% endif %}
+						</div> #}
 	{% include "micro_post/_post.html.twig" with {post:post}  %}
+	<div class='mt-10'>
+		{% for comment in post.comments %}
+			{# getComments() method will be called automatically #}
+			<div>
+				<div class='flex items-center'>
+					<div class='inline-block bg-slate-200 dark:bg-slate-700 rounded-full text-3xl w-8 h-8 ring-2 ring-white dark:ring-slate-600 mr-2'></div>
+					<div>
+						<div class='font-medium text-slate-800 dark:text-slate-300'>Author:</div>
+						<div class='font-light text-slate-500 dark:text-slate-500'>Posted:</div>
+					</div>
+				</div>
+				<div class='flex'>
+					<div class='border border-slate-200 dark:border-slate-600 ml-4 mr-6 pb-12'></div>
+					<div>{{comment.text}}</div>
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
 {% endblock %}
