@@ -33,7 +33,7 @@ class MicroPost
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'microPost', orphanRemoval: true, cascade:['persist'])] // orphanRemoval means if we delete post , all comments will be deleted as well
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'microPost', orphanRemoval: true)] // orphanRemoval means if we delete post , all comments will be deleted as well
     private Collection $comments;
 
     public function __construct()

@@ -6,6 +6,8 @@ use App\Entity\Comment;
 use App\Entity\MicroPost;
 use App\Entity\User;
 use App\Entity\UserProfile;
+use App\Repository\CommentRepository;
+use App\Repository\MicroPostRepository;
 use App\Repository\UserProfileRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +25,7 @@ class HelloController extends AbstractController
     ];
 
     #[Route('/', name: 'app_index')] // optional param with default value of
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, CommentRepository $comments, MicroPostRepository $posts): Response
     {
         // OneToOne -> requires EntityManagerInterface $entityManager, UserProfileRepository $profiles
 
@@ -39,7 +41,7 @@ class HelloController extends AbstractController
         // $entityManager->flush();
 
         // Find user profile by user ID
-        // $userProfile = $profiles->findOneBy(['user' => 8]);
+        // $userProfile = $profiles->findOneBy(['user' => 8]); // possible also to use just find() method - it will find by foreign key and not by ID
 
         // if ($userProfile) {
         //     $entityManager -> remove($userProfile);
@@ -49,17 +51,28 @@ class HelloController extends AbstractController
 
         // One To Many
         // Owning side in the relationship is the one that does not have the special field on it for the relation to exist - if the field specifying the post ID is the comment that means that microPost is the owning side - so microPost can exist without comments, it can optionally have some comments associated. But in order for comment to exist, it is mandatory to be associated with some post.
-        $post = new MicroPost();
-        $post -> setTitle('My first post');
-        $post -> setText('Hello brothers');
-        $post -> setCreatedAt(new DateTime());
-        
-        $comment = new Comment();
-        $comment -> setText('What a wonderful post!');
 
-        $post -> addComment($comment);
+        // $post = new MicroPost();
+        // $post -> setTitle('My first post');
+        // $post -> setText('Hello brothers');
+        // $post -> setCreatedAt(new DateTime());
+
+        /** @var MicroPost $post */
+        $post = $posts->find(19);
+        //dd($post); // comments not fetched - lazy loading. Doctrine ORM loads data which we asked for.
+
+        $comment = $post -> getComments()[0];
+
+        $post -> removeComment($comment); // only way to delete comment from post
+        
+        // $comment = new Comment();
+        // $comment -> setText('Second comment woot woot!');
+        // $comment -> setMicroPost($post);
+        
+        // // $post -> addComment($comment);
 
         $entityManager -> persist($post);
+        // $entityManager -> persist($comment);
         $entityManager -> flush();
 
 
