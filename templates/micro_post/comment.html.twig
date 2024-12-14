@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Comment -
+	{{post.title}}
+{% endblock %}
+
+{% block breadcrumb %}
+	-> Add Comment
+{% endblock %}
+
+{% block body %}
+	{# <h3>{{post.title}}</h3>
+			<div>{{post.text}}</div>
+			<div style='color:grey;'>
+				{% if date(post.createdAt) < date('-1year') %}
+					More than year ago.
+				{% else %}
+					{{post.createdAt|date('d/m/Y')}}
+				{% endif %}
+			</div> #}
+	{% include "micro_post/_post.html.twig" with {post:post}  %}
+
+	{{form_start(form, {'attr' : {'novalidate' : 'novalidate'}})}}
+	<div>
+		<div>
+			{{form_errors(form)}}
+		</div>
+		<div>
+			{{form_label(form.text,'Enter your comment:', {'label_attr' : {'class' : 'block text-sm text-slate-700 dark:text-slate-300 font-medium mb-1'}})}}
+			{{form_widget(form.text,{'attr' : {'class': 'block w-full shadow-md border-slate-500 text-slate-800 p-2 dark:border-transparent dark:text-slate-800 rounded-md border mb-2'}})}}
+			{{form_errors(form.text)}}
+		</div>
+		<div>
+			<button type='submit' class='block w-full shadow-md border-transparent bg-indigo-400 p-2 mt-5 rounded-md text-slate-100 font-medium text-xl hover:bg-indigo-500 dark:hover:text-white'>Add Comment!</button>
+		</div>
+	</div>
+	{{form_end(form)}}
+{% endblock %}

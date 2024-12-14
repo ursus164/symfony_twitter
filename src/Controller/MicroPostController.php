@@ -123,7 +123,7 @@ class MicroPostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
-            $comment->setPost($post);
+            $comment->setMicroPost($post);
             $entityManager->persist($comment);
             $entityManager->flush();
 
