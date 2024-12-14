@@ -6,7 +6,7 @@
 {% block body %}
 	<div>
 		{% if messages %}
-			{% for key,message in messages|slice(0,limit) %}
+			{% for key,message in messages %}
 				<div>
 					<a href="{{path('app_show_one', {id:key})}}">{{message.value}}</a>
 				</div>
