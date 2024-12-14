@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Entity\MicroPost;
 use App\Entity\User;
 use App\Entity\UserProfile;
 use App\Repository\UserProfileRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,8 +23,10 @@ class HelloController extends AbstractController
     ];
 
     #[Route('/', name: 'app_index')] // optional param with default value of
-    public function index(EntityManagerInterface $entityManager, UserProfileRepository $profiles): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        // OneToOne -> requires EntityManagerInterface $entityManager, UserProfileRepository $profiles
+
         // $user = new User();
         // $user->setEmail('test@example.com');
         // $user->setPassword('123456');
@@ -40,6 +45,23 @@ class HelloController extends AbstractController
         //     $entityManager -> remove($userProfile);
         //     $entityManager -> flush();
         // }
+
+
+        // One To Many
+        // Owning side in the relationship is the one that does not have the special field on it for the relation to exist - if the field specifying the post ID is the comment that means that microPost is the owning side - so microPost can exist without comments, it can optionally have some comments associated. But in order for comment to exist, it is mandatory to be associated with some post.
+        $post = new MicroPost();
+        $post -> setTitle('My first post');
+        $post -> setText('Hello brothers');
+        $post -> setCreatedAt(new DateTime());
+        
+        $comment = new Comment();
+        $comment -> setText('What a wonderful post!');
+
+        $post -> addComment($comment);
+
+        $entityManager -> persist($post);
+        $entityManager -> flush();
+
 
         
 
