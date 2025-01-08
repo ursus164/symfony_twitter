@@ -53,14 +53,14 @@ final class MicroPostVoter extends Voter
             case self::EDIT:
                 // logic to determine if the user can EDIT - to edit post we have to have role editor or be author of the post
                 // return true or false
-                return $isAuth && (($subject -> getAuthor() -> getId() === $user -> getId()) || $this -> security -> isGranted('ROLE_EDITOR')) ;
-                break;
+                return $isAuth && ((($subject -> getAuthor() -> getId() === $user -> getId())) || $this -> security -> isGranted('ROLE_EDITOR')) ;
+            
 
             case self::VIEW:
                 // logic to determine if the user can VIEW
                 // return true or false
                 return true;
-                break;
+
         }
 
         return false;
