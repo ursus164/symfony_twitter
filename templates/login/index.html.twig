@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{# Symfony takes care of the whole logic of submitting user credentials -> we do not have to make it on our own (checking field validity etc...) #}
+
+{% block breadcrumb %}
+	-> Login
+{% endblock %}
+
+{% block body %}
+	<form action="{{path('app_login')}}" method='POST'>
+		<div>
+			<label for="email" class='block text-sm text-slate-700 dark:text-slate-300 font-medium mb-1'>Email</label>
+			<input type="text" name="_username" value={{lastUsername}} class='block w-full shadow-md border-slate-500 text-slate-800 p-2 dark:border-transparent dark:text-slate-800 rounded-md border mb-2'>
+		</div>
+		<div>
+			<label for="password" class='block text-sm text-slate-700 dark:text-slate-300 font-medium mb-1'>Password</label>
+			<input type="password" name="_password" value={{lastUsername}} class='block w-full shadow-md border-slate-500 text-slate-800 p-2 dark:border-transparent dark:text-slate-800 rounded-md border mb-2'>
+		</div>
+
+		<input type="hidden" name='_target_path' value="{{'app_micro_post'}}">
+		<button type="submit" class='block w-full shadow-md border-transparent bg-indigo-400 p-2 mt-5 rounded-md text-slate-100 font-medium text-xl hover:bg-indigo-500 dark:hover:text-white'>Login</button>
+	</form>
+
+{% endblock %}
