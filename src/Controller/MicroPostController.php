@@ -8,6 +8,7 @@ use App\Entity\MicroPost;
 use App\Form\CommentType;
 use App\Form\MicroPostType;
 use App\Repository\MicroPostRepository;
+use App\Security\Voter\MicroPostVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,7 @@ class MicroPostController extends AbstractController
         ]);
     }
     #[Route('/micro-post/{post}', name: 'app_micro_post_show')]
+    #[IsGranted(MicroPostVoter::VIEW, 'post')]
     public function showOne(MicroPost $post): Response
     {
         // dd($posts -> find($id));
