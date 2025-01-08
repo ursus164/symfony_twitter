@@ -12,14 +12,16 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function index(
         AuthenticationUtils $utils
-    ): Response
-    {
-        $lastUsername = $utils -> getLastUsername();
-        $authError = $utils -> getLastAuthenticationError();
+    ): Response {
+        $lastUsername = $utils->getLastUsername();
+        $authError = $utils->getLastAuthenticationError();
 
         return $this->render('login/index.html.twig', [
             'lastUsername' => $lastUsername,
             'error' => $authError
         ]);
     }
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout() {}
 }

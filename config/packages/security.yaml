@@ -20,6 +20,10 @@ security:
                 # users will be redirected to app_login if some endpoint needs authentication and they are not authenticated
                 login_path: app_login
                 check_path: app_login # all credentials from form will be sent to be verified
+            
+            logout:
+                path: app_logout
+                target: app_micro_post
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
