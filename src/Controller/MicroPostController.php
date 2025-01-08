@@ -140,7 +140,6 @@ class MicroPostController extends AbstractController
             $comment = $form->getData();
             $comment->setMicroPost($post);
             $comment->setAuthor($this->getUser()); // assumes that there is currently authenticated user
-            $comment->setCreatedAt(new DateTime());
 
             $entityManager->persist($comment);
             $entityManager->flush();

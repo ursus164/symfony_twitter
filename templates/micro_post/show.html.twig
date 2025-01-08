@@ -27,7 +27,7 @@
 					<div class='inline-block bg-slate-200 dark:bg-slate-700 rounded-full text-3xl w-8 h-8 ring-2 ring-white dark:ring-slate-600 mr-2'></div>
 					<div>
 						<div class='font-medium text-slate-800 dark:text-slate-300'>Author: {{ comment.author.email }}</div>
-						<div class='font-light text-slate-500 dark:text-slate-500'>Posted: {{ comment.createdAt}}</div>
+						<div class='font-light text-slate-500 dark:text-slate-500'>Posted: {{ comment.createdAt|date('M j, Y H:i') }}</div>
 					</div>
 				</div>
 				<div class='flex'>
