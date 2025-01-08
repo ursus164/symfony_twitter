@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MicroPostController extends AbstractController
 {
@@ -55,8 +56,13 @@ class MicroPostController extends AbstractController
     }
 
     #[Route('/micro-post/add', name: 'app_micro_post_add', priority: 2)]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')] // access is denied for whole method
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
+        // $this -> denyAccessUnlessGranted(
+        //     'IS_AUTHENTICATED_FULLY' // given by symfony implicitely (if user is authenticated)
+        // ); // with this approach we can decide from which point we are denying access
+
         // microPost object will be filled with data provided by a form - that's why we pass it to builder
 
         $form = $this->createForm(MicroPostType::class, new MicroPost());
@@ -68,6 +74,8 @@ class MicroPostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
             $post->setCreatedAt(new DateTime());
+            $post->setAuthor($this->getUser()); // assumes that there is currently authenticated user
+
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -87,6 +95,7 @@ class MicroPostController extends AbstractController
 
 
     #[Route('/micro-post/{post}/edit', name: 'app_micro_post_edit')]
+    #[IsGranted('ROLE_EDITOR')]
     public function edit(MicroPost $post, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -116,6 +125,7 @@ class MicroPostController extends AbstractController
     }
 
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
+    #[IsGranted('ROLE_COMMENTER')] // access is denied for whole method
     public function addComment(MicroPost $post, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -126,6 +136,8 @@ class MicroPostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
             $comment->setMicroPost($post);
+            $comment->setAuthor($this->getUser()); // assumes that there is currently authenticated user
+
             $entityManager->persist($comment);
             $entityManager->flush();
 
