@@ -36,6 +36,9 @@ darkMode: 'class'
 						{# only for authenticated users #}
 						<a href="{{path('app_micro_post_add')}}">Add New</a>
 					</div>
+					<div class='text-sm text-slate-500 dark:text-slate-200'>
+						<a href="{{path('app_logout')}}">Logout</a>
+					</div>
 				{% else %}
 					<div class='text-sm text-slate-500 dark:text-slate-200'>
 						<a href="{{path('app_login')}}">Login</a>

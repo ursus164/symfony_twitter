@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+use function Symfony\Component\Clock\now;
+
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 class MicroPostController extends AbstractController
 {
@@ -138,6 +140,7 @@ class MicroPostController extends AbstractController
             $comment = $form->getData();
             $comment->setMicroPost($post);
             $comment->setAuthor($this->getUser()); // assumes that there is currently authenticated user
+            $comment->setCreatedAt(new DateTime());
 
             $entityManager->persist($comment);
             $entityManager->flush();
