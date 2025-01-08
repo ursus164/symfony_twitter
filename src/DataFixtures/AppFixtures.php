@@ -24,13 +24,14 @@ class AppFixtures extends Fixture
         $user1 = new User();
         $user1->setEmail('test@example.com');
         $user1->setPassword(
+            // available because dependency is injected
             $this->userPasswordHasher->hashPassword(
                 $user1,
                 '12345678'
             )
         );
         $user2 = new User();
-        $user2->setEmail('p[atrykos@example.com');
+        $user2->setEmail('patrykos@example.com');
         $user2->setPassword(
             $this->userPasswordHasher->hashPassword(
                 $user2,

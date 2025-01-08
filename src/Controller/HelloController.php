@@ -58,12 +58,12 @@ class HelloController extends AbstractController
         // $post -> setCreatedAt(new DateTime());
 
         /** @var MicroPost $post */
-        $post = $posts->find(19);
+        //$post = $posts->find(19);
         //dd($post); // comments not fetched - lazy loading. Doctrine ORM loads data which we asked for.
 
-        $comment = $post -> getComments()[0];
+        //$comment = $post -> getComments()[0];
 
-        $post -> removeComment($comment); // only way to delete comment from post
+        //$post -> removeComment($comment); // only way to delete comment from post
         
         // $comment = new Comment();
         // $comment -> setText('Second comment woot woot!');
@@ -71,9 +71,9 @@ class HelloController extends AbstractController
         
         // // $post -> addComment($comment);
 
-        $entityManager -> persist($post);
+        //$entityManager -> persist($post);
         // $entityManager -> persist($comment);
-        $entityManager -> flush();
+        //$entityManager -> flush();
 
 
         

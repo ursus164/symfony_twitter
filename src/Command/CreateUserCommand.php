@@ -18,8 +18,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
     description: 'Creates a new user account',
 )]
 class CreateUserCommand extends Command
+// it is possible to make it interactive - with questions being asked to users about email and password
 {
     public function __construct(
+    // dependency injection
     private UserPasswordHasherInterface $userPasswordHasher,
     private EntityManagerInterface $entityManager
 ) {
@@ -31,7 +33,7 @@ class CreateUserCommand extends Command
         $this
             ->addArgument('email', InputArgument::REQUIRED, 'User email')
             ->addArgument('password', InputArgument::REQUIRED, 'User password')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            // ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
     }
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -50,6 +52,7 @@ class CreateUserCommand extends Command
         );
 
         $this -> entityManager -> persist($user);
+        $this -> entityManager -> flush();
 
         // if ($arg1) {
         //     $io->note(sprintf('You passed an argument: %s', $arg1));
