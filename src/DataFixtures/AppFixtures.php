@@ -46,6 +46,7 @@ class AppFixtures extends Fixture
         $microPost1->setTitle('Welcome to Poland!');
         $microPost1->setText('Polska Gurrom!!!!');
         $microPost1->setCreatedAt(new DateTime());
+        $microPost1->setAuthor($user1);
 
         $manager->persist($microPost1);
 
@@ -53,6 +54,7 @@ class AppFixtures extends Fixture
         $microPost2->setTitle('Welcome to US');
         $microPost2->setText('USA DOWN!!!!');
         $microPost2->setCreatedAt(new DateTime());
+        $microPost2->setAuthor($user2);
 
         $manager->persist($microPost2);
 
@@ -60,6 +62,7 @@ class AppFixtures extends Fixture
         $microPost3->setTitle('Welcome to GERMANY');
         $microPost3->setText('GERMANY MIDDLE!!!!');
         $microPost3->setCreatedAt(new DateTime());
+        $microPost3->setAuthor($user2);
 
         $manager->persist($microPost3);
 
